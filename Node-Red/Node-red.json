@@ -1,0 +1,560 @@
+[
+    {
+        "id": "626b1fdb8473e39d",
+        "type": "tab",
+        "label": "5512",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "16c5180893103a23",
+        "type": "http in",
+        "z": "626b1fdb8473e39d",
+        "name": "Receive from App",
+        "url": "/appRequest",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 310,
+        "y": 900,
+        "wires": [
+            [
+                "6d9a834901def564",
+                "395b21204edd4180"
+            ]
+        ]
+    },
+    {
+        "id": "6d9a834901def564",
+        "type": "function",
+        "z": "626b1fdb8473e39d",
+        "name": "Check MobileData",
+        "func": "if (msg.payload.mode === \"Green\") {\n    msg.payload = 0\n    return [msg, msg, msg, msg, msg];\n} else if(msg.payload.mode ===\"Polluted\"){\n    msg.payload = 1\n    return [msg, msg, msg, msg, msg];\n}\nelse {\n    return [null, null, null, null, null];\n}",
+        "outputs": 5,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 900,
+        "wires": [
+            [
+                "1767505fccdc27cb"
+            ],
+            [
+                "c9f15e7c7863516d"
+            ],
+            [
+                "d4eb7f18278c4d0e"
+            ],
+            [
+                "a1dcd7904f23eed9"
+            ],
+            [
+                "f6c8bf9651bce6d1",
+                "42de2aaba7b334b3"
+            ]
+        ]
+    },
+    {
+        "id": "c9f15e7c7863516d",
+        "type": "http request",
+        "z": "626b1fdb8473e39d",
+        "name": "Send to FlowerM",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.104:1019/flowerJ_ready",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 880,
+        "wires": [
+            [
+                "031c44c126d23e4f"
+            ]
+        ]
+    },
+    {
+        "id": "d4eb7f18278c4d0e",
+        "type": "http request",
+        "z": "626b1fdb8473e39d",
+        "name": "Send to FlowerC",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.106:1990/flower2_ready",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 940,
+        "wires": [
+            [
+                "f0d64005e0256c9e"
+            ]
+        ]
+    },
+    {
+        "id": "a1dcd7904f23eed9",
+        "type": "http request",
+        "z": "626b1fdb8473e39d",
+        "name": "Send to Fan",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.105:1650/fans_ready",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 750,
+        "y": 980,
+        "wires": [
+            [
+                "e3f60ab4316fd004"
+            ]
+        ]
+    },
+    {
+        "id": "395b21204edd4180",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "AppRequest",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "f7fd944004eabbb5",
+        "type": "function",
+        "z": "626b1fdb8473e39d",
+        "name": "Check IRData",
+        "func": "if (msg.payload.mode === \"Green\" ||msg.payload.message === \"Green\") {\n    msg.payload = 0\n    return [msg, msg, msg, msg];\n} \nelse {\n    return [null, null, null, null];\n}",
+        "outputs": 4,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 540,
+        "wires": [
+            [
+                "b604c57697d61b8e"
+            ],
+            [
+                "4adc883189afb66d"
+            ],
+            [
+                "97591a40fa0f802f"
+            ],
+            [
+                "718578d10ceb879a"
+            ]
+        ]
+    },
+    {
+        "id": "b4792357b8c1bf26",
+        "type": "http in",
+        "z": "626b1fdb8473e39d",
+        "name": "Receive from IR",
+        "url": "/IRRequest",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 300,
+        "y": 540,
+        "wires": [
+            [
+                "f7fd944004eabbb5",
+                "c81b984ea182f074"
+            ]
+        ]
+    },
+    {
+        "id": "b604c57697d61b8e",
+        "type": "http request",
+        "z": "626b1fdb8473e39d",
+        "name": "IR Send to FlowerM",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.104:1019/flowerJ_ready",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 780,
+        "y": 480,
+        "wires": [
+            [
+                "f8957d8db466bf74"
+            ]
+        ]
+    },
+    {
+        "id": "4adc883189afb66d",
+        "type": "http request",
+        "z": "626b1fdb8473e39d",
+        "name": "IR Send to FlowerC",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.106:1990/flower2_ready",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 770,
+        "y": 540,
+        "wires": [
+            [
+                "d48525fc45ee7e3d"
+            ]
+        ]
+    },
+    {
+        "id": "97591a40fa0f802f",
+        "type": "http request",
+        "z": "626b1fdb8473e39d",
+        "name": "IR Send to Fan",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.105:1650/fans_ready",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 780,
+        "y": 600,
+        "wires": [
+            [
+                "67674fc2d7496972"
+            ]
+        ]
+    },
+    {
+        "id": "c81b984ea182f074",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "IRRequest",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "031c44c126d23e4f",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "flowerM",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "f0d64005e0256c9e",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "flowerC",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "e3f60ab4316fd004",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "Fan",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "1767505fccdc27cb",
+        "type": "http request",
+        "z": "626b1fdb8473e39d",
+        "name": "Send to IR",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.0.108:5512/IRControl",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 750,
+        "y": 820,
+        "wires": [
+            [
+                "af41c5b2e958cc1e"
+            ]
+        ]
+    },
+    {
+        "id": "af41c5b2e958cc1e",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "IR",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "42de2aaba7b334b3",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "oscOutput",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "f6c8bf9651bce6d1",
+        "type": "osc",
+        "z": "626b1fdb8473e39d",
+        "name": "",
+        "path": "/test",
+        "metadata": false,
+        "x": 750,
+        "y": 1060,
+        "wires": [
+            [
+                "c9426e734caf0981"
+            ]
+        ]
+    },
+    {
+        "id": "c9426e734caf0981",
+        "type": "udp out",
+        "z": "626b1fdb8473e39d",
+        "name": "",
+        "addr": "192.168.0.103",
+        "iface": "",
+        "port": "8999",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 990,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "f8957d8db466bf74",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "IR 2 flowerM",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d48525fc45ee7e3d",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "IR 2 flowerC",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "67674fc2d7496972",
+        "type": "debug",
+        "z": "626b1fdb8473e39d",
+        "name": "IR 2 fan",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "718578d10ceb879a",
+        "type": "osc",
+        "z": "626b1fdb8473e39d",
+        "name": "",
+        "path": "/test",
+        "metadata": false,
+        "x": 750,
+        "y": 680,
+        "wires": [
+            [
+                "5964cc64a7ca654d"
+            ]
+        ]
+    },
+    {
+        "id": "5964cc64a7ca654d",
+        "type": "udp out",
+        "z": "626b1fdb8473e39d",
+        "name": "",
+        "addr": "192.168.0.103",
+        "iface": "",
+        "port": "8999",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 950,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "abf6e65706ce03e7",
+        "type": "inject",
+        "z": "626b1fdb8473e39d",
+        "name": "Green Mode",
+        "props": [
+            {
+                "p": "payload",
+                "v": "{\"mode\":\"Green\"}",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"mode\":\"Green\"}",
+        "payloadType": "json",
+        "x": 370,
+        "y": 420,
+        "wires": [
+            [
+                "f7fd944004eabbb5"
+            ]
+        ]
+    },
+    {
+        "id": "79970c2672b61420",
+        "type": "inject",
+        "z": "626b1fdb8473e39d",
+        "name": "Polluted Mode",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"mode\":\"Polluted\"}",
+        "payloadType": "json",
+        "x": 320,
+        "y": 800,
+        "wires": [
+            [
+                "6d9a834901def564"
+            ]
+        ]
+    }
+]
