@@ -11,15 +11,17 @@ An interactive art installation project promoting the reduction of plastic bag u
 
 ## Introduction
 **1. Motivation**
+   
    In Hong Kong, plastic bags will be restricted from April 1, 2024 onwards. Therefore, we would like to use an interactive installation to show the harm of plastic bags to the environment and to raise the awareness of plastic bag pollution, so as to increase the awareness of reducing the use of plastic bags.
 
    ![image](https://github.com/RachelR1001/Blooms-Against-Blight-An-Environmental-Art-Initiative/assets/148432322/dbafc730-08d5-4988-bbeb-f94e0c78090c)
 
 
 **2. What is it**
+  
    Our project is an interactive installation that promotes the use of fewer plastic bags. Through the changes of interaction modes, mechanical structure and visual effects in the installation, we convey to the user the situation before and after the environment is polluted and sound the alarm for people to protect the environment.
 
-**2. System Diagram & Workflow**
+**3. System Diagram & Workflow**
 
   ![image](https://github.com/RachelR1001/Blooms-Against-Blight-An-Environmental-Art-Initiative/assets/148432322/607b5d6f-8f4c-4f2c-884b-9970e963b625)
   
